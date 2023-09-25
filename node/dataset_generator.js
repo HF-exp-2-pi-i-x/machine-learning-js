@@ -26,12 +26,12 @@ fileNames.forEach((fn) => {
     });
 
     const paths = drawings[label];
-
+    // get json dataset
     fs.writeFileSync(
       constants.JSON_DIR + "/" + id + ".json",
       JSON.stringify(paths)
     );
-
+    // get img dataset
     generateImageFile(constants.IMG_DIR + "/" + id + ".png", paths);
     utils.printProgress(id, fileNames.length * 8);
     id++;
