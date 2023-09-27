@@ -11,10 +11,12 @@ for (const sample of samples) {
   const paths = JSON.parse(
     fs.readFileSync(constants.JSON_DIR + "/" + sample.id + ".json")
   );
-  sample.point = [features.getPathCount(paths), features.getPointCount(paths)];
+  // sample.point = [features.getPathCount(paths), features.getPointCount(paths)];
+  sample.point = [features.getAspectRatio(paths), features.getFullness(paths)];
 }
 
-const featureNames = ["Path Count", "Point Count"];
+// const featureNames = ["Path Count", "Point Count"];
+const featureNames = ["Aspect Ratio", "Fullness"];
 
 fs.writeFileSync(
   constants.FEATURES,
