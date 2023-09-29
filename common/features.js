@@ -19,8 +19,8 @@ features.getAspectRatio = (paths) => {
 
   const xCoordinates = points.map((pt) => pt[0]);
   const yCoordinates = points.map((pt) => pt[1]);
-  const width = Math.max(...xCoordinates) - Math.min(...yCoordinates);
-  const height = Math.max(...yCoordinates) - Math.min(...xCoordinates);
+  const width = Math.max(...xCoordinates) - Math.min(...xCoordinates);
+  const height = Math.max(...yCoordinates) - Math.min(...yCoordinates);
   return width / height;
 };
 
