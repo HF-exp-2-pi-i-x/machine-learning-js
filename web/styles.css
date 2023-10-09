@@ -46,7 +46,7 @@ button:disabled:hover {
   margin-bottom: 5px;
 }
 
-.row:hover {
+/* .row:hover {
   background-color: white;
   border: 6px solid rgba(0, 0, 255, 0.538);
   .rowLabel {
@@ -55,7 +55,7 @@ button:disabled:hover {
   .sampleContainer {
     background-color: gold;
   }
-}
+} */
 
 .thumb {
   width: 100%;
@@ -87,7 +87,7 @@ button:disabled:hover {
 }
 
 .emphasize {
-  background-color: yellow;
+  background-color: yellow !important;
 }
 
 #container {
@@ -126,4 +126,9 @@ button:disabled:hover {
   color: white;
   font-size: 30px;
   position: relative;
+}
+
+#statistics {
+  font-size: 20px;
+  padding: 20px;
 }
