@@ -1,6 +1,6 @@
 body {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  background-color: black;
+  background-color: rgb(2, 120, 92);
   overscroll-behavior: none;
 }
 
@@ -99,11 +99,31 @@ button:disabled:hover {
   right: 0;
   top: 50%;
   transform: translate(0, -50%);
+  z-index: 2;
 }
 
-@media only screen and (max-width: 600px) {
-  .rowLabel,
-  .sampleContainer {
-    font-size: 1.2em;
-  }
+#inputContainer {
+  position: fixed;
+  right: 500px;
+  top: 50%;
+  transform: translate(0, -50%);
+  text-align: center;
+  margin: 10px;
+  z-index: 2;
+}
+
+#controlPanel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 500px;
+  text-align: center;
+  padding: 10px;
+  z-index: 2;
+}
+
+#predictedLabelContainer {
+  color: white;
+  font-size: 30px;
+  position: relative;
 }

@@ -1,5 +1,5 @@
 const constants = require("../common/constants.js");
-const features = require("../common/features.js");
+const featureFunctions = require("../common/featureFunctions.js");
 
 const fs = require("fs");
 
@@ -11,12 +11,11 @@ for (const sample of samples) {
   const paths = JSON.parse(
     fs.readFileSync(constants.JSON_DIR + "/" + sample.id + ".json")
   );
-  // sample.point = [features.getPathCount(paths), features.getPointCount(paths)];
-  sample.point = [features.getAspectRatio(paths), features.getFullness(paths)];
+  const functions = featureFunctions.inUse.map((f) => f.function);
+  sample.point = functions.map((f) => f(paths));
 }
 
-// const featureNames = ["Path Count", "Point Count"];
-const featureNames = ["Aspect Ratio", "Fullness"];
+const featureNames = featureFunctions.inUse.map((f) => f.name);
 
 fs.writeFileSync(
   constants.FEATURES,
