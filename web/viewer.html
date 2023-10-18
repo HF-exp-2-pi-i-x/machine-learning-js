@@ -21,6 +21,7 @@
     <script src="../common/js_objects/training.js"></script>
     <script src="../common/js_objects/testing.js"></script>
     <script src="../common/js_objects/minMax.js"></script>
+    <script src="../common/js_objects/meanSd.js"></script>
 
     <script src="../common/constants.js"></script>
     <script src="../common/utils.js"></script>
@@ -108,7 +109,8 @@
       function onDrawingUpdate(paths) {
         const functions = featureFunctions.inUse.map((f) => f.function);
         const point = functions.map((f) => f(paths));
-        utils.normalizePoints([point], minMax);
+        // utils.normalizePoints([point], minMax);
+        utils.standardizePoints([point], meanSd);
         const { label, nearestSamples } = kNN.predict(point);
         predictedLabelContainer.innerHTML = "Is it a " + label + "?";
         chart.showDynamicPoint(point, label, nearestSamples);

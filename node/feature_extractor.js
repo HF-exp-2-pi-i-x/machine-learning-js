@@ -32,11 +32,18 @@ for (let i = 0; i < samples.length; i++) {
   }
 }
 
-const minMax = utils.normalizePoints(training.map((s) => s.point));
+// const minMax = utils.normalizePoints(training.map((s) => s.point));
 
-utils.normalizePoints(
+// utils.normalizePoints(
+//   testing.map((s) => s.point),
+//   minMax
+// );
+
+const meanSd = utils.standardizePoints(training.map((s) => s.point));
+
+utils.standardizePoints(
   testing.map((s) => s.point),
-  minMax
+  meanSd
 );
 
 fs.writeFileSync(
@@ -109,11 +116,15 @@ fs.writeFileSync(
   `const testing = ${JSON.stringify({ featureNames, samples: testing })};`
 );
 
+// fs.writeFileSync(
+//   constants.MIN_MAX_JS,
+//   `const minMax =
+//   ${JSON.stringify(minMax)}
+//   `
+// );
 fs.writeFileSync(
-  constants.MIN_MAX_JS,
-  `const minMax = 
-  ${JSON.stringify(minMax)}
-  `
+  constants.MEAN_SD_JS,
+  `const meanSd = ${JSON.stringify(meanSd)}`
 );
 
 console.log("DONE!");

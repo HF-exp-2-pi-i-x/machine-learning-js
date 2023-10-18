@@ -55,6 +55,31 @@ utils.invLerp = (a, b, v) => {
   return (v - a) / (b - a);
 };
 
+utils.standardizePoints = (points, meanSd) => {
+  let mean, sd;
+  const dimensions = points[0].length;
+  if (meanSd) {
+    mean = meanSd.mean;
+    sd = meanSd.sd;
+  } else {
+    mean = [];
+    sd = [];
+    for (let j = 0; j < dimensions; j++) {
+      const values = points.map((point) => point[j]);
+      const meanSquare =
+        values.reduce((sum, current) => sum + current ** 2, 0) / values.length;
+      mean[j] = values.reduce((sum, current) => sum + current) / values.length;
+      sd[j] = Math.sqrt(meanSquare - mean[j] ** 2);
+    }
+  }
+  for (let i = 0; i < points.length; i++) {
+    for (let j = 0; j < dimensions; j++) {
+      points[i][j] = (points[i][j] - mean[j]) / sd[j];
+    }
+  }
+  return { mean, sd };
+};
+
 utils.normalizePoints = (points, minMax) => {
   let min, max;
   const dimensions = points[0].length;
