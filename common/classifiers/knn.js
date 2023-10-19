@@ -9,16 +9,39 @@ class KNN {
   }
   predict(point) {
     const samplePoints = this.samples.map((s) => s.point);
-    const indices = utils.getNearest(point, samplePoints, this.k);
-    const nearestSamples = indices.map((i) => this.samples[i]);
+    const { indices, distances } = utils.getNearest(
+      point,
+      samplePoints,
+      this.k
+    );
+    const nearestSamples = indices.map((i, index) => {
+      let weight;
+      const epsilon = 1e-6;
+      if (distances[index] == 0) {
+        weight = 1 / epsilon;
+      } else {
+        weight = 1 / distances[index];
+      }
+      return { ...this.samples[i], weight };
+    });
     const labels = nearestSamples.map((s) => s.label);
-    const counts = {};
-    for (const label of labels) {
-      counts[label] = counts[label] ? counts[label] + 1 : 1;
+    const weightedCounts = {};
+    for (const sample of nearestSamples) {
+      weightedCounts[sample.label] = weightedCounts[sample.label]
+        ? weightedCounts[sample.label] + sample.weight
+        : sample.weight;
     }
-    const max = Math.max(...Object.values(counts));
-    const label = labels.find((l) => counts[l] == max);
-    return { label, nearestSamples };
+    const maxWeight = Math.max(...Object.values(weightedCounts));
+    let totalWeight = 0;
+    for (const label in weightedCounts) {
+      totalWeight += weightedCounts[label];
+    }
+    const accuracy = `${math.formatNumber(
+      (maxWeight / totalWeight) * 100,
+      2
+    )}%`;
+    const label = labels.find((l) => weightedCounts[l] == maxWeight);
+    return { label, nearestSamples, accuracy };
   }
 }
 

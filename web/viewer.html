@@ -111,8 +111,8 @@
         const point = functions.map((f) => f(paths));
         // utils.normalizePoints([point], minMax);
         utils.standardizePoints([point], meanSd);
-        const { label, nearestSamples } = kNN.predict(point);
-        predictedLabelContainer.innerHTML = "Is it a " + label + "?";
+        const { label, nearestSamples, accuracy } = kNN.predict(point);
+        predictedLabelContainer.innerHTML = `Is it a ${label} ? (${accuracy} correct)`;
         chart.showDynamicPoint(point, label, nearestSamples);
       }
     </script>

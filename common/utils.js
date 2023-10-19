@@ -48,7 +48,8 @@ utils.getNearest = (loc, points, k = 1) => {
     return utils.distance(loc, a.val) - utils.distance(loc, b.val);
   });
   const indices = sorted.map((obj) => obj.ind);
-  return indices.slice(0, k);
+  const distances = sorted.map((obj) => utils.distance(loc, obj.val));
+  return { indices: indices.slice(0, k), distances: distances.slice(0, k) };
 };
 
 utils.invLerp = (a, b, v) => {
