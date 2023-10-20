@@ -40,6 +40,7 @@
       const { samples, featureNames } = features;
       const trainingSamples = training.samples;
       const testingSamples = testing.samples;
+      const guessingSamples = testing.samples;
 
       const k = 50;
       const kNN = new KNN(trainingSamples, k);
@@ -55,6 +56,19 @@
         correctCount += testSample.correct ? 1 : 0;
       }
 
+      // guess
+      let guessCorrectCount = 0;
+      let guessCount = 0;
+      for (const guessSample of guessingSamples) {
+        guessSample.truth = guessSample.label;
+        guessSample.label = "?";
+        const label = kNN.guess();
+        guessSample.label = label;
+        guessSample.correct = guessSample.label == guessSample.truth;
+        guessCount++;
+        guessCorrectCount += guessSample.correct ? 1 : 0;
+      }
+
       statistics.innerHTML =
         "<b>ACCURACY</b><br>" +
         correctCount +
@@ -62,6 +76,13 @@
         totalCount +
         " (" +
         utils.formatPercent(correctCount / totalCount) +
+        ")" +
+        "<br> <b>RANDOM GUESS</b><br>" +
+        guessCorrectCount +
+        "/" +
+        guessCount +
+        " (" +
+        utils.formatPercent(guessCorrectCount / guessCount) +
         ")";
 
       const trainingGroups = utils.groupBy(trainingSamples, "student_id");

@@ -43,6 +43,12 @@ class KNN {
     const label = labels.find((l) => weightedCounts[l] == maxWeight);
     return { label, nearestSamples, accuracy };
   }
+
+  guess() {
+    const labels = this.samples.map((s) => s.label);
+    labels.filter((label, i) => labels.indexOf(label) === i);
+    return labels[Math.floor(Math.random() * labels.length)];
+  }
 }
 
 if (typeof module !== "undefined") {
