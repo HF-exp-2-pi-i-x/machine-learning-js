@@ -197,10 +197,14 @@ class Chart {
     const { ctx, canvas } = this;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const topLeft = math.remapPoint(this.dataBounds, this.pixelBounds, [0, 1]);
-    const sz = (canvas.width - this.margin * 2) / this.dataTrans.scale ** 2;
-    ctx.drawImage(this.bg, ...topLeft, sz, sz);
-    /*
+    const topLeft = math.remapPoint(this.dataBounds, this.pixelBounds, [
+      this.dataBounds.left,
+      this.dataBounds.right,
+    ]);
+    const sx = (canvas.width - this.margin * 2) / this.dataTrans.scale ** 2;
+    const sy = (canvas.height - this.margin * 2) / this.dataTrans.scale ** 2;
+    ctx.drawImage(this.bg, ...topLeft, sx, sy);
+
     ctx.globalAlpha = this.transparency;
     this.#drawSamples(this.samples);
     ctx.globalAlpha = 1;
@@ -212,7 +216,7 @@ class Chart {
     if (this.selectedSample) {
       this.#emphasizeSample(this.selectedSample, "yellow");
     }
-*/
+
     if (this.dynamicPoint) {
       const { point, label } = this.dynamicPoint;
       const pixelLoc = math.remapPoint(
@@ -220,7 +224,7 @@ class Chart {
         this.pixelBounds,
         point
       );
-      /*
+
       graphics.drawPoint(ctx, pixelLoc, "rgba(255,255,255,0.7)", 10000000000);
       ctx.strokeStyle = "gray";
       for (const sample of this.nearestSamples) {
@@ -234,7 +238,7 @@ class Chart {
         ctx.lineTo(...point);
         ctx.stroke();
       }
-      */
+
       graphics.drawImage(ctx, this.styles[label].image, pixelLoc);
     }
 

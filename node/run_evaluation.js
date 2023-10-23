@@ -34,6 +34,25 @@ console.log(
     utils.formatPercent(correctCount / totalCount)
 );
 
+console.log("CALCULATING ACCURACIES FOR DIFFERENT k s...");
+const accuracies = [];
+for (let k = 1; k <= 1000; k++) {
+  const kNN = new KNN(trainingSamples, k);
+  let totalCount = 0,
+    correctCount = 0;
+  for (const sample of testingSamples) {
+    const { label: predictedLabel } = kNN.predict(sample.point);
+    correctCount += predictedLabel == sample.label;
+    totalCount++;
+  }
+  accuracies.push(Number(((correctCount / totalCount) * 100).toFixed(2)));
+}
+
+fs.writeFileSync(
+  constants.ACCURACIES_JS,
+  `const accuracies = ${JSON.stringify(accuracies)};`
+);
+
 console.log("GENERATING DECISION BOUNDARY ...");
 
 const { createCanvas } = require("canvas");
