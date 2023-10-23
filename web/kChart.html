@@ -10,18 +10,12 @@
     <script src="../common/js_objects/accuracies.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      const testArr = [];
-
-      for (let i = 1; i <= 1000; i++) {
-        testArr.push(i);
-      }
-
       const ctx = document.getElementById("myChart");
 
       new Chart(ctx, {
         type: "line",
         data: {
-          labels: testArr,
+          labels: accuracies.map((a, i) => i),
           datasets: [
             {
               label: "Accuracy (in %)",
