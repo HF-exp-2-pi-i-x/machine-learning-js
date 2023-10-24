@@ -1,3 +1,9 @@
+import matplotlib.pyplot as plt
+
+# import numpy as np
+
+
+# example data
 classes = {
     "car": 0,
     "fish": 1,
@@ -23,20 +29,20 @@ def readFeatureFile(filePath):
     return (X, y)
 
 
-from sklearn.neighbors import KNeighborsClassifier
-
-knn = KNeighborsClassifier(
-    n_neighbors=50,
-    algorithm="brute",
-    weights="uniform",
-)
-
-X, y = readFeatureFile("../data/dataset/training.csv")
-
-knn.fit(X, y)
-
 X, y = readFeatureFile("../data/dataset/testing.csv")
 
+width = [point[0] for point in X]
+height = [point[1] for point in X]
 
-accuracy = knn.score(X, y)
-print("Accuracy:", accuracy)
+# scatter
+plt.scatter(width, height, c=y, cmap="viridis", label="Labels")
+
+# labels & title
+plt.xlabel("Width")
+plt.ylabel("Height")
+plt.title("Drawing app width vs height")
+
+plt.legend()
+
+
+plt.show()

@@ -33,7 +33,7 @@ console.log(
     " (" +
     utils.formatPercent(correctCount / totalCount)
 );
-
+/*
 console.log("CALCULATING ACCURACIES FOR DIFFERENT k s...");
 const accuracies = [];
 for (let k = 1; k <= 1000; k++) {
@@ -47,6 +47,7 @@ for (let k = 1; k <= 1000; k++) {
   }
   accuracies.push(Number(((correctCount / totalCount) * 100).toFixed(2)));
 }
+*/
 
 fs.writeFileSync(
   constants.ACCURACIES_JS,
