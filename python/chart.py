@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 
 # import numpy as np
 
-
 # example data
 classes = {
     "car": 0,
@@ -15,27 +14,42 @@ classes = {
     "clock": 7,
 }
 
+labels = list(classes.keys())
+
+colors = ["b", "g", "r", "c", "m", "y", "k", "brown"]
+
 
 def readFeatureFile(filePath):
     f = open(filePath, "r")
     lines = f.readlines()
 
     X = []
-    y = []
     for i in range(1, len(lines)):
         row = lines[i].split(",")
         X.append([float(row[j]) for j in range(len(row) - 1)])
-        y.append(classes[row[-1].strip()])
-    return (X, y)
+        X[i - 1].append(classes[row[-1].strip()])
+    return X
 
 
-X, y = readFeatureFile("../data/dataset/testing.csv")
+X = readFeatureFile("../data/dataset/testing.csv")
 
-width = [point[0] for point in X]
-height = [point[1] for point in X]
+
+width = []
+height = []
+
+for i in range(0, 8):
+    width.append([])
+    height.append([])
+    for sample in X:
+        if sample[2] == i:
+            width[i].append(sample[0])
+            height[i].append(sample[1])
+
 
 # scatter
-plt.scatter(width, height, c=y, cmap="viridis", label="Labels")
+for i in range(0, 8):
+    plt.scatter(width[i], height[i], c=colors[i], label=labels[i])
+
 
 # labels & title
 plt.xlabel("Width")
