@@ -2,9 +2,9 @@ if (typeof utils === "undefined") {
   utils = require("../utils.js");
 }
 
-if (typeof math === "undefined") {
-  math = require("../../web/chart/math.js");
-}
+// if (typeof math === "undefined") {
+// math = require("../../web/chart/math.js");
+// }
 
 class KNN {
   constructor(samples, k) {
